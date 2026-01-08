@@ -15,7 +15,7 @@ services:
       INSTALLATION_ENV: docker
       DEFAULT_LOCALE: pt_BR
       FRONTEND_URL: ${SERVICE_URL_RAILS}
-      INTERNAL_HOST_URL: http://chatwoot:3000
+      INTERNAL_HOST_URL: http://rails:3000
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
       POSTGRES_USERNAME: ${SERVICE_USER_POSTGRES}
@@ -54,7 +54,7 @@ services:
       INSTALLATION_ENV: docker
       DEFAULT_LOCALE: pt_BR
       FRONTEND_URL: ${SERVICE_URL_RAILS}
-      INTERNAL_HOST_URL: http://chatwoot:3000
+      INTERNAL_HOST_URL: http://rails:3000
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
       POSTGRES_USERNAME: ${SERVICE_USER_POSTGRES}
