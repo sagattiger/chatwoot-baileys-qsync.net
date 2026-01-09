@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.9'
 services:
   rails-prepare:
     image: 'ghcr.io/fazer-ai/chatwoot:latest'
@@ -17,6 +17,7 @@ services:
       RAILS_ENV: production
       INSTALLATION_ENV: docker
       DEFAULT_LOCALE: pt_BR
+      TZ: America/Sao_Paulo
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
       POSTGRES_USERNAME: '${SERVICE_USER_POSTGRES}'
@@ -50,6 +51,7 @@ services:
       RAILS_ENV: production
       INSTALLATION_ENV: docker
       DEFAULT_LOCALE: pt_BR
+      TZ: America/Sao_Paulo
       FRONTEND_URL: '${SERVICE_URL_RAILS}'
       INTERNAL_HOST_URL: 'http://rails:3000'
       POSTGRES_HOST: postgres
@@ -105,6 +107,7 @@ services:
       RAILS_ENV: production
       INSTALLATION_ENV: docker
       DEFAULT_LOCALE: pt_BR
+      TZ: America/Sao_Paulo
       FRONTEND_URL: '${SERVICE_URL_RAILS}'
       INTERNAL_HOST_URL: 'http://rails:3000'
       POSTGRES_HOST: postgres
@@ -148,6 +151,7 @@ services:
       POSTGRES_USER: '${SERVICE_USER_POSTGRES}'
       POSTGRES_PASSWORD: '${SERVICE_PASSWORD_POSTGRES}'
       PGDATA: /var/lib/postgresql/data/pgdata
+      TZ: America/Sao_Paulo
     healthcheck:
       test:
         - CMD-SHELL
@@ -166,6 +170,7 @@ services:
       - chatwoot-network
     environment:
       REDIS_PASSWORD: '${SERVICE_PASSWORD_REDIS}'
+      TZ: America/Sao_Paulo
     healthcheck:
       test:
         - CMD-SHELL
@@ -179,6 +184,8 @@ services:
     pull_policy: always
     volumes:
       - 'baileys-storage:/app/storage'
+      - '/etc/localtime:/etc/localtime:ro'
+      - '/etc/timezone:/etc/timezone:ro'
     depends_on:
       redis:
         condition: service_healthy
@@ -191,6 +198,8 @@ services:
       LOG_LEVEL: '${LOG_LEVEL:-info}'
       BAILEYS_LOG_LEVEL: '${BAILEYS_LOG_LEVEL:-error}'
       BAILEYS_PROVIDER_DEFAULT_API_KEY: '${SERVICE_PASSWORD_64_DEFAULTAPIKEY}'
+      TZ: America/Sao_Paulo
+      CORS_ORIGIN: '${SERVICE_URL_RAILS}'
     command: "sh -c \"bun manage-api-keys create user ${SERVICE_PASSWORD_64_DEFAULTAPIKEY} 2>/dev/null || true && bun start\"\n"
     restart: always
     healthcheck:
